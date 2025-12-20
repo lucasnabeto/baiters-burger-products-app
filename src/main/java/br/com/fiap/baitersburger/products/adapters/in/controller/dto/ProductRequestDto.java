@@ -1,6 +1,5 @@
 package br.com.fiap.baitersburger.products.adapters.in.controller.dto;
 
-
 import br.com.fiap.baitersburger.products.core.domain.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;

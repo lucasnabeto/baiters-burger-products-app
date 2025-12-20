@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.products.adapters.out.mysql.adapter;
+package br.com.fiap.baitersburger.products.adapters.out.mysql;
 
 import br.com.fiap.baitersburger.products.adapters.out.mysql.repository.ProductRepository;
 import br.com.fiap.baitersburger.products.core.domain.ports.out.DeleteProductOutputPort;

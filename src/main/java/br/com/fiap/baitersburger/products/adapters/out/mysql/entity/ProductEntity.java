@@ -2,12 +2,14 @@ package br.com.fiap.baitersburger.products.adapters.out.mysql.entity;
 
 import br.com.fiap.baitersburger.products.core.domain.model.Category;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@Data
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,8 @@
-package br.com.fiap.baitersburger.products.adapters.out.mysql.adapter;
+package br.com.fiap.baitersburger.products.adapters.out.mysql;
 
 import br.com.fiap.baitersburger.products.adapters.out.mysql.mapper.ProductEntityMapper;
 import br.com.fiap.baitersburger.products.adapters.out.mysql.repository.ProductRepository;
+import br.com.fiap.baitersburger.products.core.domain.model.Category;
 import br.com.fiap.baitersburger.products.core.domain.model.Product;
 import br.com.fiap.baitersburger.products.core.domain.ports.out.FindProductOutputPort;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class FindProductAdapter implements FindProductOutputPort {
     }
 
     @Override
-    public List<Product> findByCategory(String category) {
+    public List<Product> findByCategory(Category category) {
         return repository.findByCategory(category)
                 .stream()
                 .map(mapper::toProduct)

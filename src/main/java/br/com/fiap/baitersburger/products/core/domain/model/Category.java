@@ -1,14 +1,24 @@
 package br.com.fiap.baitersburger.products.core.domain.model;
 
 public enum Category {
-    BURGER("Burger"),
-    SIDE_DISH("Side Dish"),
-    DRINK("Drink"),
-    DESSERT("Dessert");
+    BURGER("BURGER"),
+    SIDE_DISH("SIDE_DISH"),
+    DRINK("DRINK"),
+    DESSERT("DESSERT");
 
-    private final String category;
+    private final String productCategory;
 
-    Category(String category) {
-        this.category = category;
+    Category(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public static Category fromString(String categoryName) {
+        for (Category category : Category.values()) {
+            if (category.productCategory
+                    .equalsIgnoreCase(categoryName)) {
+                return category;
+            }
+        }
+        throw new IllegalArgumentException("This category does not exist!");
     }
 }
