@@ -15,6 +15,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String productName;
 
     @Enumerated(EnumType.STRING)
