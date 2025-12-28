@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "app" {
   container_definitions = jsonencode([
     {
       name      = "baitersburger-products-container"
-      image     = "${data.aws_ecr_repository.repository.repository_url}:latest"
+      image     = "${data.aws_ecr_repository.repository.repository_url}:${var.docker_image_tag}"
       essential = true
       portMappings = [
         {
