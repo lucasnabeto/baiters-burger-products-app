@@ -1,10 +1,11 @@
 resource "aws_ecs_task_definition" "app" {
-  family                   = "baitersburger-products-app"
+  family                   = "baitersburger-products-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "1024" # 1 vCPU
-  memory                   = "2048" # 2 GB
+  cpu                      = "256"
+  memory                   = "512"
   execution_role_arn       = data.aws_iam_role.lab_role.arn
+  task_role_arn            = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([
     {
@@ -22,7 +23,7 @@ resource "aws_ecs_task_definition" "app" {
 }
 
 resource "aws_ecs_service" "service" {
-  name            = "java-spring-service"
+  name            = "baitersburger-products-service"
   cluster         = data.aws_ecs_cluster.baitersburger_products_cluster.arn
   task_definition = aws_ecs_task_definition.app.arn
   desired_count   = 1
@@ -44,8 +45,8 @@ resource "aws_security_group" "ecs_sg" {
 resource "aws_vpc_security_group_ingress_rule" "ecs_ingress_from_alb" {
   security_group_id            = aws_security_group.ecs_sg.id
   referenced_security_group_id = data.aws_security_group.alb_sg.id
-  from_port                    = 80
-  to_port                      = 80
+  from_port                    = 8080
+  to_port                      = 8080
   ip_protocol                  = "tcp"
 }
 
