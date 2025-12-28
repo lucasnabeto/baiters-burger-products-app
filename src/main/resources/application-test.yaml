@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Baiters Burger - Products API (Test)
+  datasource:
+    url: jdbc:h2:mem:baitersburger_products_testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+server:
+  port: 8081
