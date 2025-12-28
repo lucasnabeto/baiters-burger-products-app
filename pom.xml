@@ -69,6 +69,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- H2 Database (for testing): -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- MapStruct: -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -112,6 +119,57 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.14</version>
+                <configuration>
+                    <excludes>
+                        <exclude>br/com/fiap/baitersburger/products/BaitersBurgerProductsApiApplication.class</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/core/domain/**</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/infrastructure/config/**</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/adapters/**/*Dto.class</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/adapters/**/*Entity.class</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/adapters/**/*MapperImpl.class</exclude>
+                        <exclude>br/com/fiap/baitersburger/products/adapters/**/*Exception*.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.8</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
