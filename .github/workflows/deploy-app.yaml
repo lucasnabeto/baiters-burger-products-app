@@ -46,12 +46,13 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify \
-          -Dspring.profiles.active=test \
-          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} \
-          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
-          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+        run: |
+          mvn -B verify \
+            -Dspring.profiles.active=test \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} \
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
 
   build:
     name: Build Application JAR
