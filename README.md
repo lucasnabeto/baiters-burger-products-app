@@ -1,0 +1,1 @@
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=lucasnabeto_baiters-burger-products-app)
