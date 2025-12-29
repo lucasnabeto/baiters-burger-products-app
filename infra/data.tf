@@ -24,3 +24,11 @@ data "aws_subnets" "all_default_subnets" {
 data "aws_security_group" "alb_sg" {
   name = "alb-sg"
 }
+
+data "aws_lb_target_group" "baitersburger_products_tg" {
+  name = "baitersburger-products-tg"
+}
+
+data "aws_secretsmanager_secret" "secret_rds_credentials" {
+  name = "aws-rds-credentials"
+}

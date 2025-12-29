@@ -12,12 +12,54 @@ resource "aws_ecs_task_definition" "app" {
       name      = "baitersburger-products-container"
       image     = "${data.aws_ecr_repository.repository.repository_url}:${var.docker_image_tag}"
       essential = true
+
       portMappings = [
         {
           containerPort = 8080
           hostPort      = 8080
         }
       ]
+
+      secrets = [
+        {
+          name      = "DATABASE_CONNECTION_URL"
+          valueFrom = var.database_connection_url
+        },
+        {
+          name      = "DATABASE_DRIVER_CLASS_NAME"
+          valueFrom = var.database_driver_class_name
+        },
+        {
+          name      = "DATABASE_HIBERNATE_DIALECT"
+          valueFrom = var.database_hibernate_dialect
+        },
+        {
+          name      = "DATABASE_USERNAME"
+          valueFrom = "${data.aws_secretsmanager_secret.secret_rds_credentials.arn}:username::"
+        },
+        {
+          name      = "DATABASE_PASSWORD"
+          valueFrom = "${data.aws_secretsmanager_secret.secret_rds_credentials.arn}:password::"
+        }
+      ]
+
+      healthCheck = {
+        command     = ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+        interval    = 30
+        timeout     = 5
+        retries     = 3
+        startPeriod = 60
+      }
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/baitersburger-products"
+          "awslogs-region"        = "us-east-1"
+          "awslogs-stream-prefix" = "ecs"
+          "awslogs-create-group"  = "true"
+        }
+      }
     }
   ])
 }
@@ -33,6 +75,12 @@ resource "aws_ecs_service" "service" {
     subnets          = data.aws_subnets.all_default_subnets.ids
     security_groups  = [aws_security_group.ecs_sg.id]
     assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = data.aws_lb_target_group.baitersburger_products_tg.arn
+    container_name   = "baitersburger-products-container"
+    container_port   = 8080
   }
 }
 
