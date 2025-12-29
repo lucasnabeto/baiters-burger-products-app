@@ -108,7 +108,7 @@ resource "aws_vpc_security_group_egress_rule" "ecs_egress_all_out" {
 }
 
 resource "aws_ssm_parameter" "database_connection_url" {
-  name  = "/prod/database_connection_url"
+  name  = "/rds/database_connection_url"
   type  = "SecureString"
   value = var.database_connection_url
 }
