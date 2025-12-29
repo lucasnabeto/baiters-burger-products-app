@@ -116,4 +116,9 @@ jobs:
         run: terraform plan
 
       - name: Apply infrastructure changes
-        run: terraform apply -auto-approve -var="docker_image_tag=${{ github.sha }}"
+        run: |
+          terraform apply -auto-approve \
+            -var="docker_image_tag=${{ github.sha }}" \
+            -var="database_connection_url=${{ env.DATABASE_CONNECTION_URL }}" \
+            -var="database_driver_class_name=${{ env.DATABASE_DRIVER_CLASS_NAME }}" \
+            -var="database_hibernate_dialect=${{ env.DATABASE_HIBERNATE_DIALECT }}"
