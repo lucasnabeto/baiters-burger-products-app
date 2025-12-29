@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class DeleteProductUseCaseTest {
     @Mock
-    private FindProductInputPort findProductByIdInputPort;
+    private FindProductInputPort findProductInputPort;
 
     @Mock
     private DeleteProductOutputPort deleteProductOutputPort;
@@ -28,21 +28,21 @@ class DeleteProductUseCaseTest {
     void delete_shouldRemoveProduct() {
         Long id = 1L;
         Product product = mock(Product.class);
-        when(findProductByIdInputPort.findById(id)).thenReturn(product);
+        when(findProductInputPort.findById(id)).thenReturn(product);
 
         useCase.delete(id);
 
-        verify(findProductByIdInputPort).findById(id);
+        verify(findProductInputPort).findById(id);
         verify(deleteProductOutputPort).delete(id);
     }
 
     @Test
-    void delete_shouldThrowProductNotFound() {
+    void delete_shouldThrowProductNotFoundException() {
         Long id = 1L;
-        when(findProductByIdInputPort.findById(id)).thenThrow(ProductNotFoundException.class);
+        when(findProductInputPort.findById(id)).thenThrow(ProductNotFoundException.class);
 
         assertThrows(ProductNotFoundException.class, () -> useCase.delete(id));
-        verify(findProductByIdInputPort).findById(id);
+        verify(findProductInputPort).findById(id);
         verifyNoInteractions(deleteProductOutputPort);
     }
 }
