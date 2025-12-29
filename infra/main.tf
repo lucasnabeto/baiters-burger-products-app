@@ -68,11 +68,12 @@ resource "aws_ecs_task_definition" "app" {
 }
 
 resource "aws_ecs_service" "service" {
-  name            = "baitersburger-products-service"
-  cluster         = data.aws_ecs_cluster.baitersburger_products_cluster.arn
-  task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
+  name                              = "baitersburger-products-service"
+  cluster                           = data.aws_ecs_cluster.baitersburger_products_cluster.arn
+  task_definition                   = aws_ecs_task_definition.app.arn
+  desired_count                     = 1
+  launch_type                       = "FARGATE"
+  health_check_grace_period_seconds = 120
 
   network_configuration {
     subnets          = data.aws_subnets.all_default_subnets.ids
