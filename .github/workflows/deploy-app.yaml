@@ -46,13 +46,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn -B verify \
-            -Dspring.profiles.active=test \
-            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} \
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
 
   build:
     name: Build Application JAR
@@ -119,6 +113,6 @@ jobs:
         run: |
           terraform apply -auto-approve \
             -var="docker_image_tag=${{ github.sha }}" \
-            -var="database_connection_url=${{ env.DATABASE_CONNECTION_URL }}" \
-            -var="database_driver_class_name=${{ env.DATABASE_DRIVER_CLASS_NAME }}" \
-            -var="database_hibernate_dialect=${{ env.DATABASE_HIBERNATE_DIALECT }}"
+            -var="database_connection_url=${{ secrets.DATABASE_CONNECTION_URL }}" \
+            -var="database_driver_class_name=${{ secrets.DATABASE_DRIVER_CLASS_NAME }}" \
+            -var="database_hibernate_dialect=${{ secrets.DATABASE_HIBERNATE_DIALECT }}"
