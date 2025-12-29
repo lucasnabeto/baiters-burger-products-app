@@ -20,18 +20,21 @@ resource "aws_ecs_task_definition" "app" {
         }
       ]
 
+      environment = [
+        {
+          name  = "DATABASE_DRIVER_CLASS_NAME"
+          value = var.database_driver_class_name
+        },
+        {
+          name  = "DATABASE_HIBERNATE_DIALECT"
+          value = var.database_hibernate_dialect
+        }
+      ]
+
       secrets = [
         {
           name      = "DATABASE_CONNECTION_URL"
-          valueFrom = var.database_connection_url
-        },
-        {
-          name      = "DATABASE_DRIVER_CLASS_NAME"
-          valueFrom = var.database_driver_class_name
-        },
-        {
-          name      = "DATABASE_HIBERNATE_DIALECT"
-          valueFrom = var.database_hibernate_dialect
+          valueFrom = aws_ssm_parameter.database_connection_url.arn
         },
         {
           name      = "DATABASE_USERNAME"
@@ -102,4 +105,10 @@ resource "aws_vpc_security_group_egress_rule" "ecs_egress_all_out" {
   security_group_id = aws_security_group.ecs_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
+}
+
+resource "aws_ssm_parameter" "database_connection_url" {
+  name  = "/rds/database_connection_url"
+  type  = "SecureString"
+  value = var.database_connection_url
 }
