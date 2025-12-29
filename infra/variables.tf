@@ -6,6 +6,7 @@ variable "docker_image_tag" {
 variable "database_connection_url" {
   description = "Database connection URL"
   type        = string
+  sensitive = true
 }
 
 variable "database_driver_class_name" {
