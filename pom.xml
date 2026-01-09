@@ -29,6 +29,25 @@
     <properties>
         <java.version>25</java.version>
         <sonar.organization>lucasnabeto</sonar.organization>
+        <sonar.language>java</sonar.language>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.tests>src/test/java</sonar.tests>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
+
+        <sonar.coverage.exclusions>
+            **/products/BaitersBurgerProductsApiApplication*,
+            **/products/core/domain/**,
+            **/products/infrastructure/config/**,
+            **/products/adapters/**/*Dto*,
+            **/products/adapters/**/*Entity*,
+            **/products/adapters/**/*MapperImpl*,
+            **/products/adapters/**/*Exception*
+        </sonar.coverage.exclusions>
     </properties>
     <dependencies>
         <!-- Spring Framework: -->
