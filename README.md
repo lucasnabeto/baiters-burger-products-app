@@ -47,7 +47,9 @@ A estratégia de testes é dividida em:
 -   **Testes de unidade**: Focados em testar os casos de uso e adaptadores de forma isolada, utilizando mocks (`Mockito`) para simular dependências externas.
 -   **Testes de integração/BDD**: Utilizando `Cucumber`, os testes validam os fluxos da aplicação de ponta a ponta (controller -> use case -> banco de dados), garantindo que os componentes funcionem corretamente em conjunto.
 
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=lucasnabeto_baiters-burger-products-app)
+![Jacoco Coverage](src/main/resources/static/JacocoCoverage.png)
+
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/overall?id=baiters-burger-products-app&branch=main)
 
 ## High-Level Design (HLD)
 

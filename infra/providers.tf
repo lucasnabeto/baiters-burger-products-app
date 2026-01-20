@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "baitersburger-products-infra"
+    bucket = "baitersburger-products-infrastructure"
     key    = "terraform/app/state.tfstate"
     region = "us-east-1"
   }
